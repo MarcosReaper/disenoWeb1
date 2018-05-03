@@ -14,7 +14,7 @@ public class Direccion {
 		private Long id;
 		private String calle;
 		private String numero;
-		@ManyToOne(cascade = CascadeType.PERSIST)
+		@ManyToOne(cascade = CascadeType.ALL)
 		private Barrio barrio;
 		
 		@Override

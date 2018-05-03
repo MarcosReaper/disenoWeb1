@@ -14,7 +14,11 @@ public class Direccion {
 		private Long id;
 		private String calle;
 		private String numero;
+<<<<<<< HEAD
 		@ManyToOne(cascade = CascadeType.PERSIST)
+=======
+		@ManyToOne
+>>>>>>> parent of 12205da... Test
 		private Barrio barrio;
 		
 		@Override

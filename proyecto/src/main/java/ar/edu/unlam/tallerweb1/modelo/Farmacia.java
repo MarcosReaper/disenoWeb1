@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class Farmacia {
 	private String nombre;
 	private String telefono;
 	private String diaDeTurno;
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Direccion direccion;
 	@ManyToOne
 	private Punto geoLocalizacion;

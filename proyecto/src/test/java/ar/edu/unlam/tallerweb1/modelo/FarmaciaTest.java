@@ -25,23 +25,22 @@ public class FarmaciaTest extends SpringTest{
 		Assert.assertTrue(!farmacia.isEmpty());
 	}
 	
-
-	public void todasLasFarmaciasDeUnaCalle() {
+	@Test
+	@Transactional
+	@SuppressWarnings("unchecked")
+	public void todasLasFarmaciasDeUnBarrio() {
+		Barrio barrio = new Barrio("villa luro");
+		Direccion direccionA = new Direccion("Falsa", "123", barrio);
+		Direccion direccionB = new Direccion("Verdadera", "312", barrio);
 		Farmacia farmaciaA = new  Farmacia("Belen", "4512-1234", "Martes");
-		farmaciaA.setDireccion(new Direccion("viamonte", "1484",new Barrio("Tribunales")));
+		farmaciaA.setDireccion(direccionA);
 		Farmacia farmaciaB = new  Farmacia("Junin", "4512-1232", "martes");
-		farmaciaB.setDireccion(new Direccion("viamonte", "666", new Barrio("Tribunales")));
-		Farmacia farmaciaC = new  Farmacia("Flores", "4512-1231", "jueves");
-		farmaciaC.setDireccion(new Direccion("parana", "3221", new Barrio("Tribunales")));
+		farmaciaB.setDireccion(direccionB);
 		Session session = getSession();
 		session.saveOrUpdate(farmaciaA);
 		session.saveOrUpdate(farmaciaB);
-		session.saveOrUpdate(farmaciaC);
-		Criteria c = session.createCriteria(Farmacia.class, "a");
-		c.createAlias("a.direccion", "u");
-		c.add(Restrictions.eq("u.calle", "viamonte"));
-		List<Farmacia> farmacia = c.list();
-		Assert.assertTrue(farmacia.size() == 2);
-		
+		List<Farmacia> farmaciaList = session.createCriteria(Farmacia.class).createAlias("direccion.barrio", " barrio")
+		.add(Restrictions.eq("barrio.nombre", "Villa Luro").ignoreCase()).list();
+		Assert.assertTrue(!farmaciaList.isEmpty());
 	}
 }

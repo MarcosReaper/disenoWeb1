@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ public class Direccion {
 		private Long id;
 		private String calle;
 		private String numero;
-		@ManyToOne(cascade = {CascadeType.All})
+		@ManyToOne(cascade = CascadeType.PERSIST)
 		private Barrio barrio;
 		
 		@Override

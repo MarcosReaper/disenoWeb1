@@ -27,9 +27,20 @@ public class FarmaciaTest extends SpringTest{
 	
 	@Test
 	@Transactional
+	@SuppressWarnings("unchecked")
 	public void todasLasFarmaciasDeUnBarrio() {
-//		Session session = getSession();
-//		session.createCriteria(Farmacia.class).add(Restrictions.)
-		//FIXME Hacer con junit un test que busque todas las farmacias de un barrio
+		Barrio barrio = new Barrio("villa luro");
+		Direccion direccionA = new Direccion("Falsa", "123", barrio);
+		Direccion direccionB = new Direccion("Verdadera", "312", barrio);
+		Farmacia farmaciaA = new  Farmacia("Belen", "4512-1234", "Martes");
+		farmaciaA.setDireccion(direccionA);
+		Farmacia farmaciaB = new  Farmacia("Junin", "4512-1232", "martes");
+		farmaciaB.setDireccion(direccionB);
+		Session session = getSession();
+		session.saveOrUpdate(farmaciaA);
+		session.saveOrUpdate(farmaciaB);
+		List<Farmacia> farmaciaList = session.createCriteria(Farmacia.class).createAlias("direccion.barrio", " barrio")
+		.add(Restrictions.eq("barrio.nombre", "Villa Luro").ignoreCase()).list();
+		Assert.assertTrue(!farmaciaList.isEmpty());
 	}
 }

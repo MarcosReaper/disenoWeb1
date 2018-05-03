@@ -24,4 +24,12 @@ public class FarmaciaTest extends SpringTest{
 		List<Farmacia> farmacia = session.createCriteria(Farmacia.class).add(Restrictions.eq("diaDeTurno", "martes").ignoreCase()).list();
 		Assert.assertTrue(!farmacia.isEmpty());
 	}
+	
+	@Test
+	@Transactional
+	public void todasLasFarmaciasDeUnBarrio() {
+//		Session session = getSession();
+//		session.createCriteria(Farmacia.class).add(Restrictions.)
+		//FIXME Hacer con junit un test que busque todas las farmacias de un barrio
+	}
 }

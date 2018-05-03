@@ -14,6 +14,8 @@ public class Farmacia {
 	private String nombre;
 	private String telefono;
 	private String diaDeTurno;
+	private Direccion direccion;
+	private Punto geoLocalizacion;
 	public Farmacia() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -70,5 +72,17 @@ public class Farmacia {
 	}
 	public void setDiaDeTurno(String diaDeTurno) {
 		this.diaDeTurno = diaDeTurno;
+	}
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+	public Punto getGeoLocalizacion() {
+		return geoLocalizacion;
+	}
+	public void setGeoLocalizacion(Punto geoLocalizacion) {
+		this.geoLocalizacion = geoLocalizacion;
 	}
 }

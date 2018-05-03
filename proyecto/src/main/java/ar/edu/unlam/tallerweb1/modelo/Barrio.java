@@ -12,7 +12,6 @@ public class Barrio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
-	
 	@ManyToOne
 	private Comuna comuna;
 	

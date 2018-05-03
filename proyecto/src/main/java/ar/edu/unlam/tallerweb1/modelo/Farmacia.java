@@ -16,13 +16,9 @@ public class Farmacia {
 	private String nombre;
 	private String telefono;
 	private String diaDeTurno;
-<<<<<<< HEAD
 	@ManyToOne(cascade = CascadeType.ALL)
-=======
-	@ManyToOne
->>>>>>> parent of 12205da... Test
 	private Direccion direccion;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Punto geoLocalizacion;
 	public Farmacia() {
 		super();

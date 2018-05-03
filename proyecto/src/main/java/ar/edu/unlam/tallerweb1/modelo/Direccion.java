@@ -13,7 +13,7 @@ public class Direccion {
 		private Long id;
 		private String calle;
 		private String numero;
-		@ManyToOne
+		@ManyToOne(cascade = {CascadeType.All})
 		private Barrio barrio;
 		
 		@Override

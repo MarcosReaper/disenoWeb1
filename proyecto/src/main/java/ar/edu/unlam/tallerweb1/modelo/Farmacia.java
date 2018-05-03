@@ -15,7 +15,7 @@ public class Farmacia {
 	private String nombre;
 	private String telefono;
 	private String diaDeTurno;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private Direccion direccion;
 	@ManyToOne
 	private Punto geoLocalizacion;

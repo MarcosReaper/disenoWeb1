@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
@@ -25,6 +26,26 @@ public class FarmaciaTest extends SpringTest{
 		Assert.assertTrue(!farmacia.isEmpty());
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void todasLasFarmaciasDeUnaCalle() {
+		Farmacia farmaciaA = new  Farmacia("Belen", "4512-1234", "Martes");
+		farmaciaA.setDireccion(new Direccion("viamonte", "1484",new Barrio("Tribunales")));
+		Farmacia farmaciaB = new  Farmacia("Junin", "4512-1232", "martes");
+		farmaciaB.setDireccion(new Direccion("viamonte", "666", new Barrio("Tribunales")));
+		Farmacia farmaciaC = new  Farmacia("Flores", "4512-1231", "jueves");
+		farmaciaC.setDireccion(new Direccion("parana", "3221", new Barrio("Tribunales")));
+		Session session = getSession();
+		session.saveOrUpdate(farmaciaA);
+		session.saveOrUpdate(farmaciaB);
+		session.saveOrUpdate(farmaciaC);
+		Criteria c = session.createCriteria(Farmacia.class, "a");
+		c.createAlias("a.direccion", "u");
+		c.add(Restrictions.eq("u.calle", "viamonte"));
+		List<Farmacia> farmacia = c.list();
+		Assert.assertTrue(farmacia.size() == 2);
+		
+	}
+	
 	@Test
 	@Transactional
 	@SuppressWarnings("unchecked")
@@ -39,7 +60,9 @@ public class FarmaciaTest extends SpringTest{
 		Session session = getSession();
 		session.saveOrUpdate(farmaciaA);
 		session.saveOrUpdate(farmaciaB);
-		List<Farmacia> farmaciaList = session.createCriteria(Farmacia.class).createAlias("direccion.barrio", " barrio")
+		List<Farmacia> farmaciaList = session.createCriteria(Farmacia.class, "farmacia")
+				.createAlias("farmacia.direccion", "direccion")
+				.createAlias("direccion.barrio", "barrio")
 		.add(Restrictions.eq("barrio.nombre", "Villa Luro").ignoreCase()).list();
 		Assert.assertTrue(!farmaciaList.isEmpty());
 	}
